@@ -1,7 +1,7 @@
 console.log("Running >.<");
 const robot = require("robotjs");
 const clipboardy = require("clipboardy");
-const VERSION = "1.1.0"
+const VERSION = "1.2.0"
 
 console.log(`Running version ${VERSION}`);
 setTimeout(main, 3000);
@@ -28,19 +28,38 @@ function main() {
     runBot();
 }
 
-const cmd = ["pls hunt", "pls fish", "pls beg", "pls search"];
-
+let counter = 0;
 async function runBot() {
-    send(cmd[0]);
+    if (counter != 0 && counter % 50 == 0) {
+        sellStuff();
+    }
+    if (counter == 100) {
+        send("pls deposit max");
+        counter = 0;
+    }
+    send("pls hunt");
     setTimeout(runBot, 61 * 1000); // After a minute.
-    send(cmd[1]);
-    send(cmd[2]);
+    send("pls fish");
+    send("pls beg");
     await delay(10000)
-    send(cmd[3]);
+    send("pls search");
     await delay(5000)
     await checkColor();
     let option = await selectOption();
     send(option);
+    counter++;
+    }
+
+    function sellStuff() {
+        // for the hunt.
+        send("pls sell skunk max");
+        send("pls sell rabbit max");
+        send("pls sell duck max");
+        send("pls sell boar max");
+
+        // for fishing.
+        send("pls sell fish max");
+        send("pls sell rare fish max");
     }
 
     async function selectOption() {
