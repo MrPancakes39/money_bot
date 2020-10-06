@@ -1,7 +1,7 @@
 console.log("Running >.<");
 const robot = require("robotjs");
 const clipboardy = require("clipboardy");
-const VERSION = "1.2.0"
+const VERSION = "1.2.1"
 
 console.log(`Running version ${VERSION}`);
 setTimeout(main, 3000);
@@ -30,35 +30,41 @@ function main() {
 
 let counter = 0;
 async function runBot() {
-    if (counter != 0 && counter % 50 == 0) {
-        sellStuff();
-    }
-    if (counter == 100) {
+    try {
+        console.log(counter);
+        if (counter == 10) {
+           sellStuff();
+           counter = 0;
+        }
+        send("pls hunt");
+        setTimeout(runBot, 61 * 1000); // After a minute.
+        send("pls fish");
+        send("pls beg");
+        await delay(10000)
+        send("pls search");
+        await delay(5000)
+        await checkColor();
+        let option = await selectOption();
+        send(option);
         send("pls deposit max");
-        counter = 0;
-    }
-    send("pls hunt");
-    setTimeout(runBot, 61 * 1000); // After a minute.
-    send("pls fish");
-    send("pls beg");
-    await delay(10000)
-    send("pls search");
-    await delay(5000)
-    await checkColor();
-    let option = await selectOption();
-    send(option);
-    counter++;
+        counter++;
+    } catch {}
     }
 
     function sellStuff() {
         // for the hunt.
         send("pls sell skunk max");
+        await delay(3000);
         send("pls sell rabbit max");
+        await delay(3000);
         send("pls sell duck max");
+        await delay(3000);
         send("pls sell boar max");
+        await delay(3000);
 
         // for fishing.
         send("pls sell fish max");
+        await delay(3000);
         send("pls sell rare fish max");
     }
 
@@ -67,7 +73,7 @@ async function runBot() {
             let text = await getText();
             let options = text.match(/`\S*`/g).map(elt => elt.replace(/`/g, ""));
             return options[Math.floor(Math.random() * options.length)];
-        } catch (err) {}
+        } catch {}
     }
 
     async function getText() {
