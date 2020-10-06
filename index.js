@@ -51,7 +51,7 @@ async function runBot() {
     } catch {}
     }
 
-    function sellStuff() {
+    async function sellStuff() {
         // for the hunt.
         send("pls sell skunk max");
         await delay(3000);
