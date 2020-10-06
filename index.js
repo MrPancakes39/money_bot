@@ -1,7 +1,7 @@
 console.log("Running >.<");
 const robot = require("robotjs");
 const clipboardy = require("clipboardy");
-const VERSION = "1.2.1"
+const VERSION = "1.3.0"
 
 console.log(`Running version ${VERSION}`);
 setTimeout(main, 3000);
@@ -25,6 +25,7 @@ function send(str) {
 
 function main() {
     send(`**Running Sal's Bot version ${VERSION}**`);
+    setInterval(()=>send("pls hourly"), 3601 * 1000); // Every Hour.
     runBot();
 }
 
@@ -33,19 +34,19 @@ async function runBot() {
     try {
         console.log(counter);
         if (counter == 10) {
-           sellStuff();
+           await sellStuff();
            counter = 0;
         }
         send("pls hunt");
         setTimeout(runBot, 61 * 1000); // After a minute.
         send("pls fish");
         send("pls beg");
-        await delay(10000)
-        send("pls search");
-        await delay(5000)
-        await checkColor();
-        let option = await selectOption();
-        send(option);
+        await delay(5000);
+        // send("pls search");
+        // await delay(2000);
+        // await checkColor();
+        // let option = await selectOption();
+        // send(option);
         send("pls deposit max");
         counter++;
     } catch {}
