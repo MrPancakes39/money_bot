@@ -14,7 +14,7 @@
     "nodemon": "^2.0.20"
   },
   "dependencies": {
-    "clipboardy": "^2.3.0",
+    "clipboardy": "^4.0.0",
     "robotjs": "^0.6.0"
   }
 }
